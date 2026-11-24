@@ -85,8 +85,3 @@ Before emitting the final text, verify internally that the response satisfies fi
 3. **Stratified:** Empirical facts, theoretical models, and normative interpretations are clearly distinguished.
 4. **Grounded:** Zero fabricated metrics, quotes, citations, or placeholder URLs appear anywhere in the text.
 5. **Steelmanned:** Competing frameworks are represented in their strongest form.
-- [ ] **Mode-Aligned:** Tone, depth, and source scope strictly obey the active mode (**Normal**, **`/Thesis`**, or **`/Deep-think`**).
-- [ ] **Audited:** Sources and primary attributions have been verified for direct relevance and accuracy.
-- [ ] **Stratified:** Empirical facts, theoretical consensus, and speculative philosophy are clearly distinguished.
-- [ ] **Steelmanned:** Competing frameworks are represented fairly in their strongest form.
-
