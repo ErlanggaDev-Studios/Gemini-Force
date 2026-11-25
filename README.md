@@ -7,7 +7,7 @@ Repo ini punya dua lapis:
 | Lapis | Isi | Fungsi |
 |---|---|---|
 | **Inti** | [`notebook-source-guide-v4.6.md`](notebook-source-guide-v4.6.md) | Mesin riset umum: verifikasi jurnal (Scopus Q1–Q2, SINTA 1–2), first-principles reasoning, three-layer source gating, dan audit metodologis. |
-| **Split Force** | [`Gemini-split-force/`](Gemini-split-force) | Enam modul spesialis yang memecah aturan inti ke domain terpisah, supaya gerbang verifikasi yang dimuat hanya yang relevan dengan tugas. |
+| **Split Force** | [`Gemini-split-force/`](Gemini-split-force) | Tujuh modul spesialis yang memecah aturan inti ke domain terpisah, supaya gerbang verifikasi yang dimuat hanya yang relevan dengan tugas. |
 
 ---
 
@@ -30,6 +30,7 @@ Gemini-Force/
 ├── notebook-source-guide-v4.6.md          # skill inti (riset & verifikasi)
 ├── README.md                              # file ini
 └── Gemini-split-force/
+    ├── 00-skill-router.md                 # router otomatis: deteksi intensi → modul
     ├── 01-closed-notebook-strict.md       # audit korpus tertutup
     ├── 02-code-systems-auditor.md         # audit kode & arsitektur sistem
     ├── 03-red-team-demolisher.md          # penghancur argumen / anti-sycophancy
@@ -57,6 +58,7 @@ Pasang hanya modul yang kamu butuhkan. Salin link raw sesuai kebutuhan:
 | Skill | Link raw yang dipasang |
 |---|---|
 | Skill inti | `https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/notebook-source-guide-v4.6.md` |
+| 00 Skill Router | `https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/00-skill-router.md` |
 | 01 Closed-Notebook | `https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/01-closed-notebook-strict.md` |
 | 02 Code & Systems | `https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/02-code-systems-auditor.md` |
 | 03 Red-Team | `https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/03-red-team-demolisher.md` |
@@ -68,6 +70,10 @@ Perintah pasang siap salin:
 
 ```
 install https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/notebook-source-guide-v4.6.md
+```
+
+```
+install https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/00-skill-router.md
 ```
 
 ```
@@ -94,7 +100,7 @@ install https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/
 install https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/06-skill-registry.md
 ```
 
-Semua file bisa dipasang sekaligus dengan mengirim ketujuh link raw di atas dalam satu pesan.
+Semua file bisa dipasang sekaligus dengan mengirim kedelapan link raw di atas dalam satu pesan.
 
 ### Kalau platform-mu bisa membaca GitHub
 
@@ -117,6 +123,18 @@ Kalau platform AI-mu belum mendukung perintah `install`, cukup:
 ## Cara memanggil
 
 Tulis trigger di awal prompt. **Kapital tidak berpengaruh:** `/extract`, `/Extract`, dan `/EXTRACT` memicu hal yang sama, begitu juga `/c-audit` dan `/C-audit`. Bentuk berkapital di tabel bawah adalah nama tampilan kanonisnya, bukan syarat penulisan.
+
+### 00 — Skill Router (`/route`)
+
+Memilih modul untukmu, tanpa slash trigger manual. Router menilai dulu apakah pertanyaan memang butuh protokol berat: obrolan ringan dan definisi satu kalimat dijawab langsung (Bypass) supaya token tidak habis untuk aturan yang tidak dipakai. Kalau perlu, ia memetakan intensi ke modul yang tepat — dokumen tertutup ke `01`, kode ke `02`, argumen ke `03`, angka ke `04`, catatan jadi prosa ke `05`, tinjauan literatur ke skill inti — dan merangkai dua modul berurutan kalau satu pertanyaan membawa dua intensi (misalnya `04` lalu `05`, atau `02` lalu `03`).
+
+| Perintah | Fungsi |
+|---|---|
+| `/route` | Aktifkan router; pertanyaan berikutnya dirutekan otomatis ke modul yang tepat |
+| `/Matrix` | Cetak tabel ambang batas + pemetaan intensi dan modul yang dipilih, tanpa menjalankannya |
+| `/Chain` | Cetak rencana rantai dua modul berurutan, lalu langsung jalankan langkah pertama |
+
+Cocok untuk: dipasang sebagai satu-satunya modul, lalu biarkan ia yang memanggil sisanya. Trigger-nya juga tidak peka kapital: `/route`, `/matrix`, dan `/chain` semuanya sah.
 
 ### 01 — Closed-Notebook Strict (`/cns`)
 
@@ -201,6 +219,7 @@ Tidak memakai trigger pendek; aktif sebagai instruksi dasar dan mengenali mode `
 
 | Kebutuhan | Skill |
 |---|---|
+| Tidak mau memilih modul sendiri; ingin dirutekan otomatis | `00-skill-router.md` (`/route`) |
 | Riset literatur, verifikasi jurnal, tinjauan pustaka | `notebook-source-guide-v4.6.md` |
 | Audit satu/beberapa dokumen tertutup, tanpa akses luar | `01-closed-notebook-strict.md` (`/cns`) |
 | Review kode, performa, keamanan, desain sistem | `02-code-systems-auditor.md` (`/csa`) |
@@ -209,13 +228,14 @@ Tidak memakai trigger pendek; aktif sebagai instruksi dasar dan mengenali mode `
 | Menulis bab/abstrak dari catatan yang sudah terverifikasi | `05-academic-prose-compiler.md` (`/apc`) |
 | Mencetak daftar skill terpasang beserta fungsi singkatnya | `06-skill-registry.md` (`/skills`) |
 
-Modul split bisa digabung dengan skill inti, tapi jangan mengaktifkan dua modul split sekaligus — justru tabrakan aturan yang ingin dihindari.
+Modul split bisa digabung dengan skill inti, tapi jangan mengaktifkan dua modul split sekaligus — berurutan boleh (lihat `/Chain` di `00-skill-router.md`), bersamaan tidak, karena justru tabrakan aturan yang ingin dihindari.
 
 ---
 
 ## Versi
 
 - `notebook-source-guide` — v4.6
+- `skill-router` — v1.0
 - `closed-notebook-strict` — v1.0
 - `code-systems-auditor` — v1.0
 - `red-team-demolisher` — v1.0
