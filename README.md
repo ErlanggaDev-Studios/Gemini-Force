@@ -7,7 +7,7 @@ Repo ini punya dua lapis:
 | Lapis | Isi | Fungsi |
 |---|---|---|
 | **Inti** | [`notebook-source-guide-v4.6.md`](notebook-source-guide-v4.6.md) | Mesin riset umum: verifikasi jurnal (Scopus Q1–Q2, SINTA 1–2), first-principles reasoning, three-layer source gating, dan audit metodologis. |
-| **Split Force** | [`Gemini-split-force/`](Gemini-split-force) | Lima modul spesialis yang memecah aturan inti ke domain terpisah, supaya gerbang verifikasi yang dimuat hanya yang relevan dengan tugas. |
+| **Split Force** | [`Gemini-split-force/`](Gemini-split-force) | Enam modul spesialis yang memecah aturan inti ke domain terpisah, supaya gerbang verifikasi yang dimuat hanya yang relevan dengan tugas. |
 
 ---
 
@@ -34,7 +34,8 @@ Gemini-Force/
     ├── 02-code-systems-auditor.md         # audit kode & arsitektur sistem
     ├── 03-red-team-demolisher.md          # penghancur argumen / anti-sycophancy
     ├── 04-data-statistics-auditor.md      # rekonsiliasi angka & validitas inferensi
-    └── 05-academic-prose-compiler.md      # penulis prosa akademik berbasis bukti
+    ├── 05-academic-prose-compiler.md      # penulis prosa akademik berbasis bukti
+    └── 06-skill-registry.md               # indeks skill terpasang + fungsi singkat
 ```
 
 ---
@@ -61,6 +62,7 @@ Pasang hanya modul yang kamu butuhkan. Salin link raw sesuai kebutuhan:
 | 03 Red-Team | `https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/03-red-team-demolisher.md` |
 | 04 Data & Statistics | `https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/04-data-statistics-auditor.md` |
 | 05 Academic Prose | `https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/05-academic-prose-compiler.md` |
+| 06 Skill Registry | `https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/06-skill-registry.md` |
 
 Perintah pasang siap salin:
 
@@ -88,7 +90,11 @@ install https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/
 install https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/05-academic-prose-compiler.md
 ```
 
-Semua file bisa dipasang sekaligus dengan mengirim keenam link raw di atas dalam satu pesan.
+```
+install https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/06-skill-registry.md
+```
+
+Semua file bisa dipasang sekaligus dengan mengirim ketujuh link raw di atas dalam satu pesan.
 
 ### Kalau platform-mu bisa membaca GitHub
 
@@ -173,6 +179,18 @@ Satu-satunya modul yang **menulis**, bukan mengaudit. Mengubah catatan dan temua
 
 Cocok untuk: menulis bab tinjauan pustaka, abstrak, diskusi, dan naskah jurnal ID/EN.
 
+### 06 — Skill Registry (`/skills`)
+
+Indeks skill yang terpasang. Mencetak satu baris per skill dalam bentuk `/trigger → fungsi singkat`, dan hanya menyebut skill yang definisinya benar-benar ada di sesi — skill yang cuma terdokumentasi diberi label `[DOCUMENTED]`, yang tidak ditemukan `[UNKNOWN SKILL]`, bukan dikarang dari ingatan.
+
+| Perintah | Fungsi |
+|---|---|
+| `/skills` | Daftar panah ringkas: trigger + fungsi satu baris per skill |
+| `/Map` | Tabel penuh: trigger, full form, file sumber, versi, dan mode tiap skill |
+| `/Verify` | Audit saja: skill mana yang termuat, trigger bentrok, dan versi yang tidak sinkron |
+
+Cocok untuk: membuka sesi baru, memastikan modul mana yang sudah aktif, dan mendeteksi trigger yang saling menimpa sebelum dipakai.
+
 ### Skill inti (`notebook-source-guide`)
 
 Tidak memakai trigger pendek; aktif sebagai instruksi dasar dan mengenali mode `/Thesis`, `/Deep-think`, serta kombinasinya (`/Deep-think && /Thesis`) untuk sintesis akademik dan audit atribusi.
@@ -189,6 +207,7 @@ Tidak memakai trigger pendek; aktif sebagai instruksi dasar dan mengenali mode `
 | Uji argumen, cari titik lemah tesis/rencana | `03-red-team-demolisher.md` (`/rtd`) |
 | Cek konsistensi tabel/angka, audit statistik & inferensi | `04-data-statistics-auditor.md` (`/dsta`) |
 | Menulis bab/abstrak dari catatan yang sudah terverifikasi | `05-academic-prose-compiler.md` (`/apc`) |
+| Mencetak daftar skill terpasang beserta fungsi singkatnya | `06-skill-registry.md` (`/skills`) |
 
 Modul split bisa digabung dengan skill inti, tapi jangan mengaktifkan dua modul split sekaligus — justru tabrakan aturan yang ingin dihindari.
 
@@ -202,5 +221,6 @@ Modul split bisa digabung dengan skill inti, tapi jangan mengaktifkan dua modul 
 - `red-team-demolisher` — v1.0
 - `data-statistics-auditor` — v1.0
 - `academic-prose-compiler` — v1.0
+- `skill-registry` — v1.0
 
 Semua skill memakai format frontmatter (`name`, `description`, `version`) agar terbaca oleh loader skill yang mendukung.
