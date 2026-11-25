@@ -1,21 +1,31 @@
 ---
 name: skill-router
-description: Meta-skill router that scores query complexity, maps the detected intent to the correct Gemini-split-force module, and chains two modules in order when one query carries two intents, with no manual slash trigger required.
-version: 1.0
+description: Always-on meta-skill router with zero commands: every user input passes through it first, it decides whether a specialist protocol is warranted and which module fits, then executes the work under that module's gates.
+version: 1.1
 ---
 # AI Skill: Meta-Skill Router
 ## 0. Core Execution Directive
-* **Strict Zero-Opening-Jargon:** Start immediately on line 1 with the routed answer itself. Zero conversational filler, zero "I think you need module 04", zero routing narration unless a routing mode was explicitly requested.
+* **Zero-Command Activation (Always On):** Installing this file is the whole activation. There is no invocation trigger and nothing for the user to type — never wait for `/route`, never ask whether routing should run, never require the user to name a module. The router inspects every message by default.
+* **Mandatory Dispatch Pass (Never Skipped):** Every user input follows one order and only that order:
+  1. **Input** — the user's message arrives.
+  2. **Think** — restate the task internally and score its load (Section 2).
+  3. **Open skill 00** — apply this file before producing anything; this step is not optional even when the answer looks obvious.
+  4. **Decide** — Bypass, or which single module and mode owns the evidence type (Section 3), or which ordered pair (Section 4).
+  5. **Process** — execute the work under that module's gates, verbatim.
+  6. **Output** — emit the result on line 1, with zero routing narration.
+  A reply written without step 3 is a protocol violation even if the answer happens to be right.
+* **Strict Zero-Opening-Jargon:** Start immediately on line 1 with the routed answer itself. Zero conversational filler, zero "I think you need module 04", zero routing narration unless a diagnostic mode was explicitly requested.
 * **Route Before Acting:** This skill only dispatches. It never audits, writes, demolishes, or compiles on its own authority; once a module is selected, that module's gates govern the work verbatim.
 * **Threshold Before Routing:** Never activate a module for a query that carries no specialist load. A one-sentence definition, a casual question, or daily chat is answered directly in Normal Mode (Bypass) — activation that the query did not earn costs tokens and latency and adds rules the answer does not use.
 * **One Module at a Time:** Never run two split modules concurrently. When a query carries two intents, run the first module to completion, then hand off its output to the second — the split force exists to prevent exactly the rule collision that parallel activation creates.
 * **No Phantom Modules:** Route only to modules whose definition is actually present in this session or listed in the repository. If the correct module is not loaded, name the file the user must install and stop; never improvise that module's protocol from memory.
 * **Explicit Trigger Wins:** A manual slash trigger in the prompt overrides detection entirely. If the user writes `/dsta`, the router routes to `04-data-statistics-auditor.md` even if the surface topic looks like code — the user's declaration outranks the router's inference.
 
-## 1. Operational Mode Routing
-* **`/route` — Skill Invocation:** Writing `/route` at the start of the prompt activates this entire skill (Meta-Skill Router) for the session, so every subsequent query is scored, classified, and dispatched to the correct module automatically, with no slash trigger per message.
-* **Case-Insensitive Trigger Matching:** Every trigger and mode in this section matches regardless of letter case — `/route`, `/ROUTE`, `/matrix`, `/Matrix`, `/chain`, and `/Chain` all route to the same mode. Capitalization never changes behavior; the capitalized form above is only the canonical display name.
-* **Normal Mode (Default):** Silent pipeline: threshold gate → intent classification → implicit module activation → that module's answer on line 1. The routing decision is not printed.
+## 1. Operational Mode Routing (Zero-Command)
+* **Always Active — No Invocation Command:** This section declares no activation trigger. Loaded once, the router stays on for the whole session and intercepts every message: `input user → berpikir → buka skill 00 → putuskan perlu modul atau tidak, dan modul apa → proses → output`. The user never types a command to start it.
+* **`/route` Is Not a Trigger:** `/route` carries no special meaning here. If a user writes it, nothing extra fires — the router was already running, and its presence in a prompt is read as emphasis on rigor, not as activation.
+* **Case-Insensitive Trigger Matching:** The only typed triggers are the optional diagnostic modes, and they match regardless of letter case — `/matrix`, `/Matrix`, `/chain`, and `/Chain` all route to the same mode. Capitalization never changes behavior; the capitalized form is only the canonical display name.
+* **Normal Mode (Default — Every Message):** Silent pipeline: threshold gate → intent classification → implicit module activation → that module's answer on line 1. The routing decision is not printed unless a diagnostic mode below is requested.
 * **`/Matrix`** (full form: `/Intent-Matrix`): Print the threshold verdict, the signal inventory, and the matched module with the alternatives considered and why they lost — then stop without executing the module.
 * **`/Chain`** (full form: `/Chain-Plan`): Print the ordered handoff plan (module A → module B), the exact artifact passed between them, and the abort condition, then immediately execute step 1.
 
@@ -28,7 +38,7 @@ Before any module is chosen, score the query and decide whether a specialist pro
 * **Ambiguity default:** when the score sits exactly at the boundary and the cheap answer would be wrong if the material turns out to matter, activate; when both answers would be identical, bypass.
 
 ## 3. Tahap 2 — Intent-to-Skill Matrix (Routing Table)
-Classify the dominant intent from its evidence type, not from its subject vocabulary. Topic words ("ekonomi", "sistem", "data") are unreliable; what the user must trust is not.
+Consulted on every message that cleared Tahap 1, without being asked. Classify the dominant intent from its evidence type, not from its subject vocabulary. Topic words ("ekonomi", "sistem", "data") are unreliable; what the user must trust is not.
 
 | Signal in the query | Module selected | Default mode |
 |---|---|---|
@@ -67,7 +77,7 @@ One query can carry two intents at once — a statistics table plus a request fo
 ## 6. Silent Pre-Output Quality Gate
 Before emitting the answer, verify internally that the response satisfies ten invariants:
 1. **No-Opening-Jargon:** The output starts on line 1 with the answer or the requested routing table — zero filler, zero "berdasarkan analisis saya".
-2. **Threshold Honored:** No module was activated for a Bypass-grade query, and no specialist-grade query was answered without its module's gates.
+2. **Dispatch Pass Ran:** Skill 00 was applied before any work began — input, think, open 00, decide — and no module was activated for a Bypass-grade query or skipped for a specialist-grade one.
 3. **One Module at a Time:** Exactly one module is active per step; no two split modules are described as running concurrently.
 4. **Order Correct:** In every chain, the evidence-producing module ran before the evidence-consuming module.
 5. **Handoff Intact:** Step 2 used step 1's findings verbatim; nothing was reconstructed from memory at the seam.

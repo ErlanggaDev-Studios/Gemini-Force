@@ -124,17 +124,17 @@ Kalau platform AI-mu belum mendukung perintah `install`, cukup:
 
 Tulis trigger di awal prompt. **Kapital tidak berpengaruh:** `/extract`, `/Extract`, dan `/EXTRACT` memicu hal yang sama, begitu juga `/c-audit` dan `/C-audit`. Bentuk berkapital di tabel bawah adalah nama tampilan kanonisnya, bukan syarat penulisan.
 
-### 00 — Skill Router (`/route`)
+### 00 — Skill Router (otomatis, tanpa perintah)
 
-Memilih modul untukmu, tanpa slash trigger manual. Router menilai dulu apakah pertanyaan memang butuh protokol berat: obrolan ringan dan definisi satu kalimat dijawab langsung (Bypass) supaya token tidak habis untuk aturan yang tidak dipakai. Kalau perlu, ia memetakan intensi ke modul yang tepat — dokumen tertutup ke `01`, kode ke `02`, argumen ke `03`, angka ke `04`, catatan jadi prosa ke `05`, tinjauan literatur ke skill inti — dan merangkai dua modul berurutan kalau satu pertanyaan membawa dua intensi (misalnya `04` lalu `05`, atau `02` lalu `03`).
+**Zero-command:** cukup pasang file ini sekali, tidak ada perintah untuk mengaktifkannya. Setiap pesan yang kamu kirim lewat alur yang sama: `input → AI berpikir → membuka skill 00 → memutuskan perlu modul atau tidak, dan modul apa → proses → output`. Router menilai dulu apakah pertanyaan memang butuh protokol berat: obrolan ringan dan definisi satu kalimat dijawab langsung (Bypass) supaya token tidak habis untuk aturan yang tidak dipakai. Kalau perlu, ia memetakan intensi ke modul yang tepat — dokumen tertutup ke `01`, kode ke `02`, argumen ke `03`, angka ke `04`, catatan jadi prosa ke `05`, tinjauan literatur ke skill inti — dan merangkai dua modul berurutan kalau satu pertanyaan membawa dua intensi (misalnya `04` lalu `05`, atau `02` lalu `03`).
 
 | Perintah | Fungsi |
 |---|---|
-| `/route` | Aktifkan router; pertanyaan berikutnya dirutekan otomatis ke modul yang tepat |
+| _(tanpa perintah)_ | Aktif sejak dipasang; semua pesan dirutekan otomatis ke modul yang tepat |
 | `/Matrix` | Cetak tabel ambang batas + pemetaan intensi dan modul yang dipilih, tanpa menjalankannya |
 | `/Chain` | Cetak rencana rantai dua modul berurutan, lalu langsung jalankan langkah pertama |
 
-Cocok untuk: dipasang sebagai satu-satunya modul, lalu biarkan ia yang memanggil sisanya. Trigger-nya juga tidak peka kapital: `/route`, `/matrix`, dan `/chain` semuanya sah.
+Cocok untuk: dipasang sebagai satu-satunya modul, lalu biarkan ia yang memanggil sisanya. `/route` tidak diperlukan — menuliskannya tidak mengubah apa pun karena router sudah berjalan. Dua mode diagnostik di atas tetap tidak peka kapital: `/matrix` dan `/chain` sama sahnya dengan bentuk berkapital.
 
 ### 01 — Closed-Notebook Strict (`/cns`)
 
@@ -219,7 +219,7 @@ Tidak memakai trigger pendek; aktif sebagai instruksi dasar dan mengenali mode `
 
 | Kebutuhan | Skill |
 |---|---|
-| Tidak mau memilih modul sendiri; ingin dirutekan otomatis | `00-skill-router.md` (`/route`) |
+| Tidak mau memilih modul sendiri; ingin dirutekan otomatis tanpa perintah | `00-skill-router.md` (aktif sendiri) |
 | Riset literatur, verifikasi jurnal, tinjauan pustaka | `notebook-source-guide-v4.6.md` |
 | Audit satu/beberapa dokumen tertutup, tanpa akses luar | `01-closed-notebook-strict.md` (`/cns`) |
 | Review kode, performa, keamanan, desain sistem | `02-code-systems-auditor.md` (`/csa`) |
@@ -235,7 +235,7 @@ Modul split bisa digabung dengan skill inti, tapi jangan mengaktifkan dua modul 
 ## Versi
 
 - `notebook-source-guide` — v4.6
-- `skill-router` — v1.0
+- `skill-router` — v1.1 (zero-command)
 - `closed-notebook-strict` — v1.0
 - `code-systems-auditor` — v1.0
 - `red-team-demolisher` — v1.0
