@@ -9,10 +9,11 @@ version: 1.0
 * **Presence Before Mention:** A skill may only appear in the registry if its definition is actually present in this session's context or was supplied by the user. A skill that is merely documented elsewhere is labeled `[DOCUMENTED]`; a skill the user names but that cannot be found is `[UNKNOWN SKILL]`. Never fill the gap from memory.
 * **Zero-Omission Rule:** Never present a partial list as complete. State the count of registered skills and the scope scanned (session, uploaded files, named directory). If only some definitions were readable, say which ones were not.
 * **One Line, One Job:** Each function line names what the skill does to the work — its gate, its output, or its refusal rule — in at most 20 words. Never describe a skill with adjectives ("powerful", "strict", "advanced") instead of its mechanism.
-* **Trigger Fidelity:** Triggers are copied character-for-character from each skill's own Section 1. No renaming, no inventing an alias because it "reads better", no merging two triggers into one row.
+* **Trigger Fidelity:** Triggers are copied character-for-character from each skill's own Section 1 and matched case-insensitively when invoked, so `/extract`, `/Extract`, and `/EXTRACT` are one trigger. No renaming, no inventing an alias because it "reads better", no merging two triggers into one row.
 
 ## 1. Operational Mode Routing
 * **`/skills` — Skill Invocation:** Writing `/skills` at the start of the prompt activates this entire skill (Skill Registry & Trigger Index) and prints the compact arrow registry of every installed skill.
+* **Case-Insensitive Trigger Matching:** Every trigger and mode in this section matches regardless of letter case — `/skills`, `/Skills`, `/map`, `/Map`, `/verify`, and `/Verify` all route to the same mode. Capitalization never changes behavior; the capitalized form above is only the canonical display name.
 * **Normal Mode (Default):** One line per skill in the canonical form `/trigger → function`, grouped by family (core, split force, project-local), in declaration order.
 * **`/Map`** (full form: `/Skill-Map`): Full registry table adding full-form trigger, source file, version, and each skill's modes, using the Structured Output Architecture.
 * **`/Verify`** (full form: `/Skill-Verify`): Audit only — which skills are loaded versus documented, duplicate or colliding triggers, scope overlaps, version drift between file and documentation. Emits no function prose beyond the verdict lines.
@@ -29,7 +30,8 @@ version: 1.0
    * **`UNKNOWN SKILL`** — named by the user, no definition and no documentation found. Output the name and `[UNKNOWN SKILL]`; never invent what it does.
    * Never upgrade `DOCUMENTED` to `LOADED`, and never silently drop a skill you could not read — an unreadable file is a stated gap, not an omission.
 2. **Layer 2 — Trigger Fidelity & Collision Detection:** For every entry:
-   * Extract the invocation trigger and every mode trigger exactly as written, preserving case and leading slash.
+   * Extract the invocation trigger and every mode trigger exactly as written, preserving the leading slash and the canonical capitalization shown in the registry.
+   * Compare case-insensitively: `/extract` and `/Extract` are the same trigger, so a difference in capitalization is never reported as a collision, and a real duplicate is never dismissed because the two spellings differ in case.
    * Detect duplicates: the same trigger claimed by two skills, one trigger being a prefix of another (`/audit` versus `/C-audit`), or a short alias identical to another skill's full form. Report each as `[TRIGGER COLLISION: A vs B]` and name which one wins in practice (the more specific match), so the user knows what will actually fire.
    * Detect missing triggers: a skill whose Section 1 declares no invocation trigger is listed with its file name and `[NO TRIGGER]` rather than given an invented one.
 3. **Layer 3 — Function Compression & Scope Overlap:** Derive each function line only from that skill's Section 0 (directive) and Section 1 (routing):
@@ -60,7 +62,7 @@ Before emitting the registry, verify internally that it satisfies ten invariants
 1. **No-Opening-Jargon:** The first line is the registry or the scope declaration — zero filler, zero "sure, here are your skills".
 2. **Completeness Claimed Honestly:** The stated count matches the number of rows printed, and the scope of the scan is named.
 3. **No Invented Skills:** Every row traces to a real definition or a real documentation entry; nothing is added because it "should" exist.
-4. **No Invented Triggers:** Every trigger, including mode triggers, is copied exactly; no alias was created to make the list look symmetric.
+4. **No Invented Triggers:** Every trigger, including mode triggers, is copied exactly; no alias was created to make the list look symmetric, and no case variant was listed as a second trigger.
 5. **Presence Classified:** Every row carries its state, and `DOCUMENTED` is never presented as `LOADED`.
 6. **One Line Per Skill:** No entry spans multiple paragraphs; no entry is a copy of that skill's description field verbatim.
 7. **Functions Distinguishable:** No two rows say the same thing; each names the evidence type it operates on.

@@ -116,7 +116,7 @@ Kalau platform AI-mu belum mendukung perintah `install`, cukup:
 
 ## Cara memanggil
 
-Tulis trigger di awal prompt. Semua trigger case-sensitive.
+Tulis trigger di awal prompt. **Kapital tidak berpengaruh:** `/extract`, `/Extract`, dan `/EXTRACT` memicu hal yang sama, begitu juga `/c-audit` dan `/C-audit`. Bentuk berkapital di tabel bawah adalah nama tampilan kanonisnya, bukan syarat penulisan.
 
 ### 01 — Closed-Notebook Strict (`/cns`)
 
@@ -189,7 +189,7 @@ Indeks skill yang terpasang. Mencetak satu baris per skill dalam bentuk `/trigge
 | `/Map` | Tabel penuh: trigger, full form, file sumber, versi, dan mode tiap skill |
 | `/Verify` | Audit saja: skill mana yang termuat, trigger bentrok, dan versi yang tidak sinkron |
 
-Cocok untuk: membuka sesi baru, memastikan modul mana yang sudah aktif, dan mendeteksi trigger yang saling menimpa sebelum dipakai.
+Cocok untuk: membuka sesi baru, memastikan modul mana yang sudah aktif, dan mendeteksi trigger yang saling menimpa sebelum dipakai. Pemanggilannya juga tidak peka kapital: `/skills`, `/Skills`, `/map`, dan `/verify` semuanya sah.
 
 ### Skill inti (`notebook-source-guide`)
 

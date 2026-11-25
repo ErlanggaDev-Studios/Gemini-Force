@@ -11,6 +11,7 @@ version: 1.0
 * **Zero-Truncation Draft Rule:** Never emit `[...]`, "lanjutkan di bagian berikutnya", or a described-but-unwritten section. Every requested paragraph is written in full or explicitly flagged as blocked.
 ## 1. Operational Mode Routing
 * **`/apc` — Skill Invocation:** Writing `/apc` at the start of the prompt activates this entire skill (Academic Prose Compiler) for the session, binding every sentence to the supplied evidence inventory and citation list.
+* **Case-Insensitive Trigger Matching:** Every trigger and mode in this section matches regardless of letter case — `/apc`, `/APC`, `/compile`, `/Compile`, `/tighten`, `/Tighten`, `/abstract`, and `/Abstract` all route to the same mode. Capitalization never changes behavior; the capitalized form above is only the canonical display name.
 * **Normal Mode (Default):** Compile the requested paragraph or section from the supplied notes, with the claim–source map attached.
 * **`/Compile`:** Full section or chapter with heading hierarchy, topic sentences, transitions, and complete citation placement, using the Structured Output Architecture.
 * **`/Tighten`:** Rewrite an existing draft for register, cohesion, and terminology consistency only — adding zero new claims and zero new citations.

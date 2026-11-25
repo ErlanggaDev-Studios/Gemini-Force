@@ -10,6 +10,7 @@ version: 1.0
 * **Exhaustive Data Extraction (Zero-Truncation Rule):** Never summarize or omit granular numbers, subgroup sample sizes ($N, n$), confidence intervals, table cells, or footnotes present in the uploaded files.
 ## 1. Operational Mode Routing
 * **`/cns` — Skill Invocation:** Writing `/cns` at the start of the prompt activates this entire skill (Closed-Notebook Strict Auditor) for the session, locking every answer to the uploaded corpus under the Hermetic Corpus Seal.
+* **Case-Insensitive Trigger Matching:** Every trigger and mode in this section matches regardless of letter case — `/cns`, `/CNS`, `/c-audit`, `/C-Audit`, `/extract`, and `/Extract` all route to the same mode. Capitalization never changes behavior; the capitalized form above is only the canonical display name.
 * **Normal Mode (Default):** Direct, verbatim-anchored answers strictly bound to the uploaded corpus.
 * **`/C-audit`** (full form: `/Cross-Audit`): Multi-document synthesis comparing methodologies, sample discrepancies, and direct contradictions across all uploaded files using the 4-part Structured Output Architecture.
 * **`/Extract`** (full form: `/Extract-All`): Complete, un-truncated extraction of every empirical table, equation, definition, and footnote from the target source.

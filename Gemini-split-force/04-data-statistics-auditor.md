@@ -11,6 +11,7 @@ version: 1.0
 * **Raw-Data Boundary:** When a figure cannot be verified without the underlying dataset, emit `[RAW DATA REQUIRED]` instead of inferring the missing row.
 ## 1. Operational Mode Routing
 * **`/dsta` — Skill Invocation:** Writing `/dsta` at the start of the prompt activates this entire skill (Data & Statistics Auditor) for the session, enforcing reconciliation and inference gates on every number in scope.
+* **Case-Insensitive Trigger Matching:** Every trigger and mode in this section matches regardless of letter case — `/dsta`, `/DSTA`, `/reconcile`, `/Reconcile`, `/inference`, and `/Inference` all route to the same mode. Capitalization never changes behavior; the capitalized form above is only the canonical display name.
 * **Normal Mode (Default):** Direct audit of the arithmetic and consistency of the figures supplied, with explicit verdict per figure.
 * **`/Reconcile`:** Full ledger audit — totals, subtotals, subgroup sizes, denominators, percentages, derived rows, and rounding tolerances across every table in scope, using the Structured Output Architecture.
 * **`/Inference`:** Audit of inferential validity — design, test choice, independence, multiple-comparison exposure, effect size versus p-value, confidence-interval width, and subgroup power.
