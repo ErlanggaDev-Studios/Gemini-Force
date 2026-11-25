@@ -100,12 +100,19 @@ install https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/
 install https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/06-skill-registry.md
 ```
 
-### Semua link raw dalam satu baris
+### Semua link raw dalam satu blok
 
-Kalau tidak mau menyalin satu per satu, salin satu baris di bawah ini dan kirim apa adanya:
+Kalau tidak mau menyalin satu per satu, salin satu blok di bawah ini (satu URL per baris) dan kirim apa adanya:
 
 ```
-https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/notebook-source-guide-v4.6.md https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/00-skill-router.md https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/01-closed-notebook-strict.md https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/02-code-systems-auditor.md https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/03-red-team-demolisher.md https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/04-data-statistics-auditor.md https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/05-academic-prose-compiler.md https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/06-skill-registry.md
+https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/notebook-source-guide-v4.6.md
+https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/00-skill-router.md
+https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/01-closed-notebook-strict.md
+https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/02-code-systems-auditor.md
+https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/03-red-team-demolisher.md
+https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/04-data-statistics-auditor.md
+https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/05-academic-prose-compiler.md
+https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/06-skill-registry.md
 ```
 
 Semua file bisa dipasang sekaligus dengan mengirim kedelapan link raw di atas dalam satu pesan.
