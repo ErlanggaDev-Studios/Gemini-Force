@@ -39,6 +39,8 @@ Gemini-Force/
 
 ## Instalasi
 
+Gunakan **link raw**, bukan link halaman GitHub. Kebanyakan AI konvensional tidak bisa membaca halaman `github.com/.../blob/...` (HTML penuh menu dan JavaScript), tapi bisa mengambil file mentah dari `raw.githubusercontent.com` sebagai teks biasa.
+
 ### Instal seluruh repo
 
 ```
@@ -47,24 +49,41 @@ install https://github.com/ErlanggaDev-Studios/Gemini-Force
 
 ### Instal per skill (disarankan untuk Split Force)
 
-Pasang hanya modul yang kamu butuhkan:
+Pasang hanya modul yang kamu butuhkan. Salin link raw sesuai kebutuhan:
+
+| Skill | Link raw yang dipasang |
+|---|---|
+| Skill inti | `https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/notebook-source-guide-v4.6.md` |
+| 01 Closed-Notebook | `https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/01-closed-notebook-strict.md` |
+| 02 Code & Systems | `https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/02-code-systems-auditor.md` |
+| 03 Red-Team | `https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/03-red-team-demolisher.md` |
+
+Perintah pasang siap salin:
+
+```
+install https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/notebook-source-guide-v4.6.md
+```
+
+```
+install https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/01-closed-notebook-strict.md
+```
+
+```
+install https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/02-code-systems-auditor.md
+```
+
+```
+install https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/03-red-team-demolisher.md
+```
+
+Semua file bisa dipasang sekaligus dengan mengirim keempat link raw di atas dalam satu pesan.
+
+### Kalau platform-mu bisa membaca GitHub
+
+Link halaman biasa tetap berfungsi untuk AI yang punya akses browsing:
 
 ```
 install https://github.com/ErlanggaDev-Studios/Gemini-Force/blob/main/Gemini-split-force/01-closed-notebook-strict.md
-```
-
-```
-install https://github.com/ErlanggaDev-Studios/Gemini-Force/blob/main/Gemini-split-force/02-code-systems-auditor.md
-```
-
-```
-install https://github.com/ErlanggaDev-Studios/Gemini-Force/blob/main/Gemini-split-force/03-red-team-demolisher.md
-```
-
-### Instal skill inti
-
-```
-install https://github.com/ErlanggaDev-Studios/Gemini-Force/blob/main/notebook-source-guide-v4.6.md
 ```
 
 ### Manual
