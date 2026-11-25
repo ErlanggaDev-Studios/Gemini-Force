@@ -7,7 +7,7 @@ Repo ini punya dua lapis:
 | Lapis | Isi | Fungsi |
 |---|---|---|
 | **Inti** | [`notebook-source-guide-v4.6.md`](notebook-source-guide-v4.6.md) | Mesin riset umum: verifikasi jurnal (Scopus Q1–Q2, SINTA 1–2), first-principles reasoning, three-layer source gating, dan audit metodologis. |
-| **Split Force** | [`Gemini-split-force/`](Gemini-split-force) | Tiga modul spesialis yang memecah aturan inti ke domain terpisah, supaya gerbang verifikasi yang dimuat hanya yang relevan dengan tugas. |
+| **Split Force** | [`Gemini-split-force/`](Gemini-split-force) | Lima modul spesialis yang memecah aturan inti ke domain terpisah, supaya gerbang verifikasi yang dimuat hanya yang relevan dengan tugas. |
 
 ---
 
@@ -19,7 +19,7 @@ Split Force adalah **kotak perkakas bedah**: satu modul, satu tugas, satu gerban
 
 1. **Mencegah tabrakan aturan antar-domain.** Modul kode mengganti syarat bibliografi akademik dengan audit Big-O, keamanan memori, dan larangan placeholder kode.
 2. **Isolasi konteks & hemat kuota token.** Memuat satu modul per sesi membuang instruksi tak relevan, sehingga model mengalokasikan seluruh memori dan token reasoning pada satu mekanisme penalaran.
-3. **Pemisahan peran epistemik.** Tiap modul punya sikap berbeda terhadap kebenaran: mengunci diri pada dokumen, mengaudit sistem, atau menyerang argumen.
+3. **Pemisahan peran epistemik.** Tiap modul punya sikap berbeda terhadap kebenaran: mengunci diri pada dokumen, mengaudit sistem, menyerang argumen, merekonsiliasi angka, atau menulis dari bukti — bukan empat sikap yang sama dengan label berbeda.
 
 ---
 
@@ -32,7 +32,9 @@ Gemini-Force/
 └── Gemini-split-force/
     ├── 01-closed-notebook-strict.md       # audit korpus tertutup
     ├── 02-code-systems-auditor.md         # audit kode & arsitektur sistem
-    └── 03-red-team-demolisher.md          # penghancur argumen / anti-sycophancy
+    ├── 03-red-team-demolisher.md          # penghancur argumen / anti-sycophancy
+    ├── 04-data-statistics-auditor.md      # rekonsiliasi angka & validitas inferensi
+    └── 05-academic-prose-compiler.md      # penulis prosa akademik berbasis bukti
 ```
 
 ---
@@ -57,6 +59,8 @@ Pasang hanya modul yang kamu butuhkan. Salin link raw sesuai kebutuhan:
 | 01 Closed-Notebook | `https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/01-closed-notebook-strict.md` |
 | 02 Code & Systems | `https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/02-code-systems-auditor.md` |
 | 03 Red-Team | `https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/03-red-team-demolisher.md` |
+| 04 Data & Statistics | `https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/04-data-statistics-auditor.md` |
+| 05 Academic Prose | `https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/05-academic-prose-compiler.md` |
 
 Perintah pasang siap salin:
 
@@ -76,7 +80,15 @@ install https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/
 install https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/03-red-team-demolisher.md
 ```
 
-Semua file bisa dipasang sekaligus dengan mengirim keempat link raw di atas dalam satu pesan.
+```
+install https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/04-data-statistics-auditor.md
+```
+
+```
+install https://raw.githubusercontent.com/ErlanggaDev-Studios/Gemini-Force/refs/heads/main/Gemini-split-force/05-academic-prose-compiler.md
+```
+
+Semua file bisa dipasang sekaligus dengan mengirim keenam link raw di atas dalam satu pesan.
 
 ### Kalau platform-mu bisa membaca GitHub
 
@@ -136,6 +148,31 @@ Mematikan sifat bawaan AI yang suka memuji pengguna. Setiap tesis, hipotesis, at
 
 Cocok untuk: uji proposal tesis, validasi strategi, debat, pra-mortem proyek.
 
+### 04 — Data & Statistics Auditor (`/dsta`)
+
+Auditor angka: tidak menilai narasi, hanya menilai koherensi data. Menghitung ulang total, subgroup, dan persentase; memeriksa unit dan tahun dasar; lalu mengaudit validitas inferensinya (pilihan uji, multiple comparisons, effect size vs p-value, Simpson's paradox, power subgroup). Angka yang mustahil diberi verdict eksplisit, bukan diperbaiki diam-diam.
+
+| Perintah | Fungsi |
+|---|---|
+| `/dsta` | Aktifkan skill; audit aritmetika & konsistensi angka yang dikirim |
+| `/Reconcile` | Ledger penuh: total, subtotal, denominator, persentase, baris turunan |
+| `/Inference` | Audit validitas inferensi: desain, uji, multiplisitas, effect size, power |
+
+Cocok untuk: tabel hasil regresi, data BPS/survei, grafik laporan, bab hasil tesis.
+
+### 05 — Academic Prose Compiler (`/apc`)
+
+Satu-satunya modul yang **menulis**, bukan mengaudit. Mengubah catatan dan temuan terverifikasi menjadi prosa akademik siap tempel: heading, topic sentence, transisi, terminologi terkunci, dan sitasi yang hanya boleh merujuk entri sumber yang benar-benar kamu berikan. Sitasi yang tidak ada di daftar dijawab `[CITATION NEEDED]`, bukan dikarang.
+
+| Perintah | Fungsi |
+|---|---|
+| `/apc` | Aktifkan skill; kompilasi paragraf/bagian dari catatan yang ada |
+| `/Compile` | Bagian utuh dengan hierarki heading + claim–source map |
+| `/Tighten` | Rapikan draft yang sudah ada: register, kohesi, konsistensi istilah — tanpa klaim baru |
+| `/Abstract` | Ringkas ke abstrak/intisari dengan batas kata yang dinyatakan |
+
+Cocok untuk: menulis bab tinjauan pustaka, abstrak, diskusi, dan naskah jurnal ID/EN.
+
 ### Skill inti (`notebook-source-guide`)
 
 Tidak memakai trigger pendek; aktif sebagai instruksi dasar dan mengenali mode `/Thesis`, `/Deep-think`, serta kombinasinya (`/Deep-think && /Thesis`) untuk sintesis akademik dan audit atribusi.
@@ -150,6 +187,8 @@ Tidak memakai trigger pendek; aktif sebagai instruksi dasar dan mengenali mode `
 | Audit satu/beberapa dokumen tertutup, tanpa akses luar | `01-closed-notebook-strict.md` (`/cns`) |
 | Review kode, performa, keamanan, desain sistem | `02-code-systems-auditor.md` (`/csa`) |
 | Uji argumen, cari titik lemah tesis/rencana | `03-red-team-demolisher.md` (`/rtd`) |
+| Cek konsistensi tabel/angka, audit statistik & inferensi | `04-data-statistics-auditor.md` (`/dsta`) |
+| Menulis bab/abstrak dari catatan yang sudah terverifikasi | `05-academic-prose-compiler.md` (`/apc`) |
 
 Modul split bisa digabung dengan skill inti, tapi jangan mengaktifkan dua modul split sekaligus — justru tabrakan aturan yang ingin dihindari.
 
@@ -161,5 +200,7 @@ Modul split bisa digabung dengan skill inti, tapi jangan mengaktifkan dua modul 
 - `closed-notebook-strict` — v1.0
 - `code-systems-auditor` — v1.0
 - `red-team-demolisher` — v1.0
+- `data-statistics-auditor` — v1.0
+- `academic-prose-compiler` — v1.0
 
 Semua skill memakai format frontmatter (`name`, `description`, `version`) agar terbaca oleh loader skill yang mendukung.
