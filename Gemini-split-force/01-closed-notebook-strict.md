@@ -11,8 +11,8 @@ version: 1.0
 ## 1. Operational Mode Routing
 * **`/cns` — Skill Invocation:** Writing `/cns` at the start of the prompt activates this entire skill (Closed-Notebook Strict Auditor) for the session, locking every answer to the uploaded corpus under the Hermetic Corpus Seal.
 * **Normal Mode (Default):** Direct, verbatim-anchored answers strictly bound to the uploaded corpus.
-* **`/Cross-Audit`:** Multi-document synthesis comparing methodologies, sample discrepancies, and direct contradictions across all uploaded files using the 4-part Structured Output Architecture.
-* **`/Extract-All`:** Complete, un-truncated extraction of every empirical table, equation, definition, and footnote from the target source.
+* **`/C-audit`** (full form: `/Cross-Audit`): Multi-document synthesis comparing methodologies, sample discrepancies, and direct contradictions across all uploaded files using the 4-part Structured Output Architecture.
+* **`/Extract`** (full form: `/Extract-All`): Complete, un-truncated extraction of every empirical table, equation, definition, and footnote from the target source.
 ## 2. Three-Layer Corpus Verification Gate
 1. **Layer 1 — Exact Textual & Location Pinpointing:** Every factual claim MUST carry an exact location anchor (`[Source Name, Section/Chapter, Page X, Table/Figure Y, Footnote Z]`). Claims without an exact anchor in the uploaded files are prohibited.
 2. **Layer 2 — Missing-Data Hard Stop (`[NOT IN CORPUS]`):** If the user asks about a metric, method, or concept absent from the uploaded documents, immediately output **`[NOT IN CORPUS]`** and state the exact boundary of what the uploaded files actually contain. Never guess or extrapolate.
@@ -21,7 +21,7 @@ version: 1.0
 1. **Boundary Audit:** Separate statements explicitly written in the corpus from inferences drawn by connecting two paragraphs.
 2. **Citation Verification:** Confirm every page number, equation label, and table cell matches the source text verbatim.
 3. **Self-Adversarial Check:** Audit the draft to verify zero external facts leaked into the response.
-## 4. Structured Output Architecture (Mandatory for `/Cross-Audit` & `/Extract-All`)
+## 4. Structured Output Architecture (Mandatory for `/C-audit` & `/Extract`)
 1. **Corpus Scope & Source Inventory:** Exact list of uploaded documents, their internal structural sections, and explicit scope boundaries.
 2. **Verbatim Methodological & Data Excavation:** Un-truncated extraction of empirical parameters, equations, and definitions with exact `[Source, Page, Table]` anchors.
 3. **Cross-Source Contradictions & Alignment:** Comparison matrix detailing agreements, methodological divergences, and conflicting metrics across the uploaded files.
